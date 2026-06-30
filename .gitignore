@@ -1,0 +1,46 @@
+# Binaries & build output
+/bin/
+/dist/
+/tmp/
+*.exe
+*.dll
+*.so
+*.dylib
+server
+
+# Test & coverage
+*.test
+*.out
+coverage.out
+coverage.html
+profile.cov
+
+# SBOM & security artifacts
+sbom*.json
+*.spdx.json
+results.sarif
+gosec-report.*
+
+# Air
+build-errors.log
+
+# Environment & secrets — never commit these
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Editor / OS
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Go workspace
+go.work
+go.work.sum
+
+# Vendored deps (this template uses module-aware mode, no vendoring)
+/vendor/

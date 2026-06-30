@@ -1,0 +1,44 @@
+---
+description: Project-wide rules for template-backend-go (Go HTTP microservice).
+globs:
+  - "**/*.go"
+  - "Makefile"
+  - "Dockerfile"
+  - ".github/workflows/**"
+alwaysApply: true
+---
+
+# template-backend-go — Cursor project rules
+
+Production Go HTTP microservice template: `chi` router, `log/slog` JSON logging,
+OpenTelemetry tracing, graceful shutdown, distroless/static/non-root container.
+Go **1.23+**, module `github.com/aircloud/template-backend-go`.
+
+## Commands (use the Makefile)
+
+- `make run` — run locally; `make run-watch` — live reload (air).
+- `make test` — `go test -race`; `make cover` — coverage with a 60% gate.
+- `make lint` — `golangci-lint run` (strict, `.golangci.yml`); `make format` to fix.
+- `make vet`, `make security` (govulncheck + gosec), `make build`, `make docker`.
+- `make ci` — full local pipeline; run it before declaring work done.
+
+## Code rules
+
+- Format with `gofumpt` + `goimports`. Comments are full sentences ending with a period.
+- Always check errors; wrap with `%w`; use `errors.Is`/`errors.As`.
+- Logging: `log/slog` JSON only, **snake_case keys**, context-aware methods in handlers.
+- Cap request bodies (`http.MaxBytesReader`), validate input, respond via the helpers in
+  `internal/handlers/respond.go`. Keep `internal/httpserver` transport-only.
+- No `init()` functions; no new global mutable state. Add tests for behavior changes.
+
+## Security & CI
+
+- Never hardcode secrets; use env vars + `.env.example`. gitleaks runs in CI and pre-commit.
+- Keep the container distroless/static/non-root — no shell, no package manager.
+- In workflows: pin every action to a 40-hex SHA with a `# vX.Y.Z` comment, start from
+  `permissions: contents: read`, set a `concurrency` group, and put `harden-runner` first.
+- GHCR/cloud auth is **GitHub OIDC** — never add long-lived secrets or PATs.
+
+## Commits
+
+Conventional Commits, signed (verified). See `CONTRIBUTING.md` and `docs/BRANCH-PROTECTION.md`.

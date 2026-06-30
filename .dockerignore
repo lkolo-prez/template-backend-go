@@ -1,0 +1,26 @@
+# Keep the build context small and free of secrets/artifacts.
+.git
+.github
+.gitignore
+.gitattributes
+.editorconfig
+.devcontainer
+.vscode
+.cursor
+.air.toml
+.golangci.yml
+*.md
+docs/
+LICENSE
+Makefile
+tmp/
+bin/
+dist/
+coverage.out
+coverage.html
+*.test
+*.out
+*.log
+.env
+.env.*
+sbom*.json

@@ -1,0 +1,28 @@
+# gitleaks configuration. Extends the upstream default ruleset and adds a few
+# allowlist entries for this template. Used by the gitleaks CI workflow and the
+# pre-commit hook. Docs: https://github.com/gitleaks/gitleaks
+title = "template-backend-go gitleaks config"
+
+[extend]
+# Inherit gitleaks' built-in rules, then layer the allowlist below.
+useDefault = true
+
+[allowlist]
+description = "Template false positives and non-secret examples."
+
+paths = [
+  '''(^|/)go\.sum$''',
+  '''(^|/)\.env\.example$''',
+  '''(^|/)testdata/''',
+  '''(^|/)docs/''',
+]
+
+regexes = [
+  # Example/placeholder values used in docs and config comments.
+  '''ghcr\.io/aircloud/template-backend-go''',
+  '''sha256:[0-9a-f]{64}''',
+  # The all-zero bootstrap SHA used by release-please config.
+  '''0{40}''',
+  # Example UUID-shaped request IDs in docs.
+  '''00000000-0000-0000-0000-000000000000''',
+]

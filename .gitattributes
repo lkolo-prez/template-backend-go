@@ -1,0 +1,24 @@
+# Normalize line endings and mark generated/binary files.
+* text=auto eol=lf
+
+*.go     text eol=lf diff=golang
+*.mod    text eol=lf
+*.sum    text eol=lf
+*.md     text eol=lf
+*.yml    text eol=lf
+*.yaml   text eol=lf
+*.json   text eol=lf
+*.toml   text eol=lf
+Makefile text eol=lf
+Dockerfile text eol=lf
+*.sh     text eol=lf
+
+# Lockfiles / checksums: collapse in diffs and exclude from language stats.
+go.sum   -diff linguist-generated
+go.mod   linguist-generated=false
+
+# Binary assets.
+*.png    binary
+*.jpg    binary
+*.ico    binary
+*.pdf    binary
