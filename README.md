@@ -1,9 +1,12 @@
+<p align="center">
+  <a href="https://aircloud.com.pl"><img src=".github/assets/banner.png" alt="AIRCLOUD: DevOps, cloud and AI engineering" width="100%"></a>
+</p>
+
 # template-backend-go
 
-[![CI](https://github.com/aircloud/template-backend-go/actions/workflows/ci.yml/badge.svg)](https://github.com/aircloud/template-backend-go/actions/workflows/ci.yml)
-[![Container](https://github.com/aircloud/template-backend-go/actions/workflows/container.yml/badge.svg)](https://github.com/aircloud/template-backend-go/actions/workflows/container.yml)
-[![CodeQL](https://github.com/aircloud/template-backend-go/actions/workflows/codeql.yml/badge.svg)](https://github.com/aircloud/template-backend-go/actions/workflows/codeql.yml)
-[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/aircloud/template-backend-go/badge)](https://scorecard.dev/viewer/?uri=github.com/aircloud/template-backend-go)
+**Security-first Go (chi) HTTP microservice template: distroless non-root image, OpenTelemetry and keyless signing.**
+
+[![CI](https://github.com/lkolo-prez/template-backend-go/actions/workflows/ci.yml/badge.svg)](https://github.com/lkolo-prez/template-backend-go/actions/workflows/ci.yml)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE)
 
 Opinionated, security-first **Go HTTP microservice** template. It ships a production-shaped
@@ -27,7 +30,7 @@ registry or cloud secrets**.
   control on each job, SBOM (CycloneDX via Syft), Trivy image scan, govulncheck + gosec,
   CodeQL, gitleaks, dependency review and OpenSSF Scorecard.
 
-## Repository layout
+## What's inside
 
 ```
 cmd/server/          Process entrypoint: config, logging, OTel, server, graceful shutdown
@@ -53,7 +56,13 @@ Makefile             Developer task runner (`make help`)
 
 The `.devcontainer` provides the full toolchain; VS Code will offer to reopen in it.
 
-## Quick start
+## Usage
+
+Create a new repository from this template (or use **Use this template** on GitHub):
+
+```bash
+gh repo create <your-org>/<name> --template lkolo-prez/template-backend-go --private --clone
+```
 
 ```bash
 # 1. Install developer tooling (lint, vuln, gosec, air, pre-commit hooks)
@@ -73,7 +82,7 @@ curl -s -X POST localhost:8080/api/v1/widgets \
 make ci          # tidy, format-check, vet, lint, test, cover, security
 ```
 
-## Make targets
+### Make targets
 
 Run `make help` for the authoritative list. The most-used targets:
 
@@ -165,3 +174,22 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the runtime + supply-chain 
 ## License
 
 [Apache-2.0](./LICENSE) — Copyright 2026 AirCloud.
+
+---
+
+## Part of the AIRCLOUD golden path
+
+| Repository | What it is |
+| --- | --- |
+| [00-engineering-standards](https://github.com/lkolo-prez/00-engineering-standards) | Golden paths, security baseline, AI-assistant policy (handbook) |
+| [template-terraform-azure](https://github.com/lkolo-prez/template-terraform-azure) | Terraform on Azure: private AKS, Key Vault, ACR, OIDC, policy-as-code |
+| [template-gitops-argocd](https://github.com/lkolo-prez/template-gitops-argocd) | Argo CD, Kustomize, Argo Rollouts, Kyverno, External Secrets |
+| [template-backend-python](https://github.com/lkolo-prez/template-backend-python) | FastAPI, Python 3.12, uv, ruff, pytest |
+| **template-backend-go** (this repo) | Go 1.23, chi, slog, OpenTelemetry, golangci-lint |
+| [template-backend-typescript](https://github.com/lkolo-prez/template-backend-typescript) | Node 22, TypeScript, Fastify 5, Zod, Vitest, pnpm |
+| [template-frontend-nextjs](https://github.com/lkolo-prez/template-frontend-nextjs) | Next.js 15, React 19, Tailwind v4, Playwright, Lighthouse CI |
+| [.github](https://github.com/lkolo-prez/.github) | Reusable CI/CD workflows and community-health defaults |
+
+Terraform modules for Azure: [AIRCLOUD-PL](https://github.com/AIRCLOUD-PL).
+
+Built and maintained by [AIRCLOUD](https://aircloud.com.pl): DevOps, cloud and AI engineering. Need help adopting the golden path? See [aircloud.com.pl/consulting](https://aircloud.com.pl/consulting).
