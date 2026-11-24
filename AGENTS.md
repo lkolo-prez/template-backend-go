@@ -7,12 +7,12 @@ Codex and compatible tools). Claude Code reads `CLAUDE.md`; the two are kept con
 
 Production Go HTTP microservice template — `chi`, `log/slog` JSON, OpenTelemetry, graceful
 shutdown, distroless/static/non-root image. Module: `github.com/aircloud/template-backend-go`.
-Go **1.23+**. Everything in English. Target year 2026.
+Go **1.26+**. Everything in English. Target year 2026.
 
 ## Setup commands
 
 ```bash
-make setup     # install golangci-lint v1.61.0, govulncheck, gosec, air; wire pre-commit
+make setup     # install golangci-lint v2.15.0, govulncheck, gosec, air; wire pre-commit
 ```
 
 ## Dev / build / test commands

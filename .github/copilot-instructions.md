@@ -2,7 +2,7 @@
 
 Repository-wide guidance for GitHub Copilot in `template-backend-go` — a production Go HTTP
 microservice template (`chi`, `log/slog` JSON, OpenTelemetry, distroless/static/non-root).
-Go **1.23+**, module `github.com/aircloud/template-backend-go`.
+Go **1.26+**, module `github.com/aircloud/template-backend-go`.
 
 ## General
 

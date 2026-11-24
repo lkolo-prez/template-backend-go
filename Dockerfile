@@ -2,7 +2,7 @@
 # ---- Multi-stage build for a static, distroless, non-root Go service. ----
 
 # Pin the builder to a digest in real usage; tag shown for readability.
-FROM golang:1.23-bookworm AS build
+FROM golang:1.27-bookworm AS build
 
 # Build metadata injected via --build-arg and stamped into the binary.
 ARG VERSION=dev

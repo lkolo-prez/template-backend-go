@@ -76,7 +76,7 @@ OpenTelemetry settings are all tunable; every key has a safe default.
 ## Container
 
 A multi-stage `Dockerfile` builds a fully static binary (`CGO_ENABLED=0`, `-trimpath`,
-stripped, version-stamped via `-ldflags`) in `golang:1.23-bookworm`, then copies it into
+stripped, version-stamped via `-ldflags`) in `golang:1.27-bookworm`, then copies it into
 `gcr.io/distroless/static-debian12:nonroot`. The final image has no shell or package manager,
 runs as uid `65532`, exposes `8080`, and uses the binary's own `-healthcheck` mode for the
 `HEALTHCHECK`. Pin the base images by digest in real deployments.

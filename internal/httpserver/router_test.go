@@ -19,7 +19,7 @@ func TestRouter_HealthEndpoints(t *testing.T) {
 	srv := newTestServer(t)
 
 	for _, path := range []string{"/healthz", "/readyz"} {
-		req := httptest.NewRequest(http.MethodGet, path, nil)
+		req := httptest.NewRequestWithContext(t.Context(), http.MethodGet, path, nil)
 		rec := httptest.NewRecorder()
 		srv.ServeHTTP(rec, req)
 
@@ -30,7 +30,7 @@ func TestRouter_HealthEndpoints(t *testing.T) {
 
 func TestRouter_SecurityHeaders(t *testing.T) {
 	srv := newTestServer(t)
-	req := httptest.NewRequest(http.MethodGet, "/healthz", nil)
+	req := httptest.NewRequestWithContext(t.Context(), http.MethodGet, "/healthz", nil)
 	rec := httptest.NewRecorder()
 	srv.ServeHTTP(rec, req)
 
@@ -41,7 +41,7 @@ func TestRouter_SecurityHeaders(t *testing.T) {
 
 func TestRouter_RequestIDGenerated(t *testing.T) {
 	srv := newTestServer(t)
-	req := httptest.NewRequest(http.MethodGet, "/healthz", nil)
+	req := httptest.NewRequestWithContext(t.Context(), http.MethodGet, "/healthz", nil)
 	rec := httptest.NewRecorder()
 	srv.ServeHTTP(rec, req)
 
@@ -51,7 +51,7 @@ func TestRouter_RequestIDGenerated(t *testing.T) {
 func TestRouter_RequestIDPropagated(t *testing.T) {
 	srv := newTestServer(t)
 	const id = "11111111-1111-1111-1111-111111111111"
-	req := httptest.NewRequest(http.MethodGet, "/healthz", nil)
+	req := httptest.NewRequestWithContext(t.Context(), http.MethodGet, "/healthz", nil)
 	req.Header.Set("X-Request-Id", id)
 	rec := httptest.NewRecorder()
 	srv.ServeHTTP(rec, req)
@@ -61,7 +61,7 @@ func TestRouter_RequestIDPropagated(t *testing.T) {
 
 func TestRouter_NotFound(t *testing.T) {
 	srv := newTestServer(t)
-	req := httptest.NewRequest(http.MethodGet, "/does-not-exist", nil)
+	req := httptest.NewRequestWithContext(t.Context(), http.MethodGet, "/does-not-exist", nil)
 	rec := httptest.NewRecorder()
 	srv.ServeHTTP(rec, req)
 

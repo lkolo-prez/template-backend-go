@@ -2,6 +2,7 @@ package httpserver
 
 import (
 	"context"
+	"errors"
 	"log/slog"
 	"net/http"
 	"runtime/debug"
@@ -46,21 +47,31 @@ func RequestIDFromContext(ctx context.Context) string {
 func Recover(logger *slog.Logger) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			defer func() {
-				if rec := recover(); rec != nil && rec != http.ErrAbortHandler {
-					logger.ErrorContext(r.Context(), "panic recovered",
-						slog.Any("panic", rec),
-						slog.String("stack", string(debug.Stack())),
-						slog.String("request_id", RequestIDFromContext(r.Context())),
-					)
-					w.Header().Set("Content-Type", "application/json")
-					w.WriteHeader(http.StatusInternalServerError)
-					_, _ = w.Write([]byte(`{"error":"internal server error"}`))
-				}
-			}()
+			defer recoverPanic(r.Context(), logger, w)
 			next.ServeHTTP(w, r)
 		})
 	}
+}
+
+// recoverPanic must be deferred directly so recover() sees the handler panic.
+// http.ErrAbortHandler is the sanctioned way to abort a response and is not
+// treated as an error.
+func recoverPanic(ctx context.Context, logger *slog.Logger, w http.ResponseWriter) {
+	rec := recover()
+	if rec == nil {
+		return
+	}
+	if err, ok := rec.(error); ok && errors.Is(err, http.ErrAbortHandler) {
+		return
+	}
+	logger.ErrorContext(ctx, "panic recovered",
+		slog.Any("panic", rec),
+		slog.String("stack", string(debug.Stack())),
+		slog.String("request_id", RequestIDFromContext(ctx)),
+	)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusInternalServerError)
+	_, _ = w.Write([]byte(`{"error":"internal server error"}`))
 }
 
 // SecurityHeaders applies a conservative set of hardening response headers
@@ -88,6 +99,7 @@ type statusRecorder struct {
 	bytes  int
 }
 
+// WriteHeader records the status code before delegating.
 func (s *statusRecorder) WriteHeader(code int) {
 	s.status = code
 	s.ResponseWriter.WriteHeader(code)

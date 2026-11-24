@@ -12,7 +12,7 @@ alwaysApply: true
 
 Production Go HTTP microservice template: `chi` router, `log/slog` JSON logging,
 OpenTelemetry tracing, graceful shutdown, distroless/static/non-root container.
-Go **1.23+**, module `github.com/aircloud/template-backend-go`.
+Go **1.26+**, module `github.com/aircloud/template-backend-go`.
 
 ## Commands (use the Makefile)
 

@@ -7,14 +7,14 @@ This is a production Go HTTP microservice template. Treat every change as if it 
 
 A 12-factor Go service: `chi` router, `log/slog` JSON logging, OpenTelemetry tracing,
 graceful shutdown, distroless/static/non-root container. Module path:
-`github.com/aircloud/template-backend-go`. Go **1.23+**.
+`github.com/aircloud/template-backend-go`. Go **1.26+**.
 
 ## Build, test and lint commands
 
 Use the Makefile — do not invent commands. Run `make help` for the full list.
 
 ```bash
-make setup         # install golangci-lint v1.61.0, govulncheck, gosec, air; wire pre-commit
+make setup         # install golangci-lint v2.15.0, govulncheck, gosec, air; wire pre-commit
 make run           # run locally (ENVIRONMENT=development LOG_LEVEL=debug)
 make run-watch     # live reload via air
 make build         # static ./bin/server (CGO_ENABLED=0, -trimpath, ldflags-stamped)

@@ -16,7 +16,7 @@ make setup          # installs golangci-lint, govulncheck, gosec, air; wires pre
 pre-commit run -a   # run all hooks against the whole tree
 ```
 
-Required tools: Go >= 1.23, Docker (with Buildx) for image builds, golangci-lint v1.61.0,
+Required tools: Go >= 1.26, Docker (with Buildx) for image builds, golangci-lint v2.15.0,
 and (optionally) pre-commit. The `.devcontainer` provides all of them.
 
 ## Everyday commands

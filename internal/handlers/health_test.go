@@ -14,7 +14,7 @@ import (
 func TestHealth_Live(t *testing.T) {
 	h := handlers.NewHealth("1.2.3")
 	rec := httptest.NewRecorder()
-	h.Live(rec, httptest.NewRequest(http.MethodGet, "/healthz", nil))
+	h.Live(rec, httptest.NewRequestWithContext(t.Context(), http.MethodGet, "/healthz", nil))
 
 	require.Equal(t, http.StatusOK, rec.Code)
 
@@ -28,12 +28,12 @@ func TestHealth_Ready(t *testing.T) {
 	h := handlers.NewHealth("1.2.3")
 
 	rec := httptest.NewRecorder()
-	h.Ready(rec, httptest.NewRequest(http.MethodGet, "/readyz", nil))
+	h.Ready(rec, httptest.NewRequestWithContext(t.Context(), http.MethodGet, "/readyz", nil))
 	assert.Equal(t, http.StatusOK, rec.Code)
 
 	// Once draining, readiness must fail.
 	h.SetReady(false)
 	rec = httptest.NewRecorder()
-	h.Ready(rec, httptest.NewRequest(http.MethodGet, "/readyz", nil))
+	h.Ready(rec, httptest.NewRequestWithContext(t.Context(), http.MethodGet, "/readyz", nil))
 	assert.Equal(t, http.StatusServiceUnavailable, rec.Code)
 }

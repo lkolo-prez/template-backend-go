@@ -20,6 +20,9 @@ type Options struct {
 	Version     string
 	ServiceName string
 	OTelEnabled bool
+	// Health is the probe handler; when nil a fresh one is created. Pass it in
+	// to flip readiness (SetReady(false)) during graceful shutdown.
+	Health *handlers.Health
 }
 
 // New builds the fully-wired HTTP handler.
@@ -45,7 +48,10 @@ func New(opts Options) http.Handler {
 		})
 	}
 
-	health := handlers.NewHealth(opts.Version)
+	health := opts.Health
+	if health == nil {
+		health = handlers.NewHealth(opts.Version)
+	}
 	r.Get("/healthz", health.Live)
 	r.Get("/readyz", health.Ready)
 

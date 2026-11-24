@@ -28,7 +28,7 @@ help: ## Show this help.
 .PHONY: setup
 setup: ## Install developer tooling (lint, vuln, gosec, air, syft, cosign hints).
 	go mod download
-	go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.61.0
+	go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.15.0
 	go install golang.org/x/vuln/cmd/govulncheck@latest
 	go install github.com/securego/gosec/v2/cmd/gosec@latest
 	go install github.com/air-verse/air@latest

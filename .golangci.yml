@@ -1,92 +1,100 @@
-# golangci-lint configuration (strict). Docs: https://golangci-lint.run
-# Run locally with: golangci-lint run
+version: "2"
 run:
-  timeout: 5m
-  tests: true
   modules-download-mode: readonly
+  tests: true
   allow-parallel-runners: true
-
 output:
   formats:
-    - format: colored-line-number
-  sort-results: true
-
+    text:
+      path: stdout
 linters:
-  disable-all: true
+  default: none
   enable:
-    - asasalint        # detect []any passed to ...any
-    - asciicheck       # non-ASCII identifiers
-    - bidichk          # dangerous unicode sequences
-    - bodyclose        # HTTP response body closed
-    - contextcheck     # inherit context correctly
-    - copyloopvar      # loop variable copy (Go 1.22+)
-    - dupl             # duplicate code
-    - durationcheck    # multiplied durations
-    - errcheck         # unchecked errors
-    - errname          # error naming conventions
-    - errorlint        # error wrapping (%w, errors.Is/As)
-    - exhaustive       # exhaustive switches on enums
+    - asasalint
+    - asciicheck
+    - bidichk
+    - bodyclose
+    - contextcheck
+    - copyloopvar
+    - dupl
+    - durationcheck
+    - errcheck
+    - errname
+    - errorlint
+    - exhaustive
     - gocheckcompilerdirectives
-    - gochecknoinits   # no init() functions
-    - goconst          # repeated strings -> const
-    - gocritic         # opinionated checks
-    - gocyclo          # cyclomatic complexity
-    - godot            # comments end with a period
-    - gofumpt          # stricter gofmt
-    - goimports        # import grouping
-    - gosec            # security issues
-    - govet            # vet
-    - ineffassign      # ineffectual assignments
-    - misspell         # spelling
-    - nakedret         # no naked returns in long funcs
-    - nilerr           # return nil after non-nil err
-    - noctx            # http requests without context
-    - nolintlint       # well-formed nolint directives
-    - prealloc         # slice preallocation
-    - predeclared      # shadowing predeclared identifiers
-    - revive           # golint replacement
-    - rowserrcheck     # sql.Rows.Err checked
-    - sloglint         # structured logging best practices
-    - staticcheck      # staticcheck suite
-    - tenv             # t.Setenv usage
-    - testifylint      # testify best practices
-    - thelper          # test helpers call t.Helper()
-    - tparallel        # t.Parallel correctness
-    - unconvert        # unnecessary conversions
-    - unparam          # unused function parameters
-    - unused           # unused code
-    - usestdlibvars    # use stdlib constants
-    - wastedassign     # wasted assignments
-    - whitespace       # leading/trailing whitespace
-
-linters-settings:
-  gocyclo:
-    min-complexity: 20
-  govet:
-    enable-all: true
-    disable:
-      - fieldalignment # too noisy for this template
-  revive:
+    - gochecknoinits
+    - goconst
+    - gocritic
+    - gocyclo
+    - godot
+    - gosec
+    - govet
+    - ineffassign
+    - misspell
+    - nakedret
+    - nilerr
+    - noctx
+    - nolintlint
+    - prealloc
+    - predeclared
+    - revive
+    - rowserrcheck
+    - sloglint
+    - staticcheck
+    - testifylint
+    - thelper
+    - tparallel
+    - unconvert
+    - unparam
+    - unused
+    - usestdlibvars
+    - wastedassign
+    - whitespace
+  settings:
+    exhaustive:
+      default-signifies-exhaustive: true
+    gocyclo:
+      min-complexity: 20
+    gosec:
+      excludes:
+        - G104
+    govet:
+      disable:
+        - fieldalignment
+      enable-all: true
+    revive:
+      rules:
+        - name: exported
+          arguments:
+            - checkPrivateReceivers
+            - disableStutteringCheck
+    sloglint:
+      attr-only: true
+      key-naming-case: snake
+  exclusions:
+    generated: lax
     rules:
-      - name: exported
-        arguments: [checkPrivateReceivers, disableStutteringCheck]
-  sloglint:
-    attr-only: true
-    key-naming-case: snake
-  exhaustive:
-    default-signifies-exhaustive: true
-  gosec:
-    excludes:
-      - G104 # handled by errcheck
-
+      - linters:
+          - dupl
+          - goconst
+          - gocyclo
+          - gosec
+        path: _test\.go
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
 issues:
   max-issues-per-linter: 0
   max-same-issues: 0
-  exclude-rules:
-    - path: _test\.go
-      linters:
-        - dupl
-        - gocyclo
-        - gosec
-        - goconst
-  exclude-use-default: false
+formatters:
+  enable:
+    - gofumpt
+    - goimports
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$

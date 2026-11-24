@@ -18,7 +18,7 @@ registry or cloud secrets**.
 
 > This is a **template repository**. The org `aircloud`, registry `ghcr.io/aircloud` and the
 > module path `github.com/aircloud/template-backend-go` are **examples** — search-and-replace
-> them for your org. Target toolchain year: **2026** (Go 1.23+).
+> them for your org. Target toolchain year: **2026** (Go 1.26+).
 
 ## Why this exists
 
@@ -49,9 +49,9 @@ Makefile             Developer task runner (`make help`)
 
 | Tool | Version |
 | --- | --- |
-| Go | >= 1.23 |
+| Go | >= 1.26 |
 | Docker (with Buildx) | >= 24 (for `make docker`) |
-| golangci-lint | v1.61.0 (`make setup` installs it) |
+| golangci-lint | v2.15.0 (`make setup` installs it) |
 | pre-commit | >= 3.7 (optional, recommended) |
 
 The `.devcontainer` provides the full toolchain; VS Code will offer to reopen in it.
@@ -185,7 +185,7 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the runtime + supply-chain 
 | [template-terraform-azure](https://github.com/lkolo-prez/template-terraform-azure) | Terraform on Azure: private AKS, Key Vault, ACR, OIDC, policy-as-code |
 | [template-gitops-argocd](https://github.com/lkolo-prez/template-gitops-argocd) | Argo CD, Kustomize, Argo Rollouts, Kyverno, External Secrets |
 | [template-backend-python](https://github.com/lkolo-prez/template-backend-python) | FastAPI, Python 3.12, uv, ruff, pytest |
-| **template-backend-go** (this repo) | Go 1.23, chi, slog, OpenTelemetry, golangci-lint |
+| **template-backend-go** (this repo) | Go 1.27, chi, slog, OpenTelemetry, golangci-lint |
 | [template-backend-typescript](https://github.com/lkolo-prez/template-backend-typescript) | Node 22, TypeScript, Fastify 5, Zod, Vitest, pnpm |
 | [template-frontend-nextjs](https://github.com/lkolo-prez/template-frontend-nextjs) | Next.js 15, React 19, Tailwind v4, Playwright, Lighthouse CI |
 | [.github](https://github.com/lkolo-prez/.github) | Reusable CI/CD workflows and community-health defaults |

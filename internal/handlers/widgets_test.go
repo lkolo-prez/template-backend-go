@@ -33,9 +33,9 @@ func do(t *testing.T, srv http.Handler, method, path, body string) *httptest.Res
 	t.Helper()
 	var r *http.Request
 	if body == "" {
-		r = httptest.NewRequest(method, path, nil)
+		r = httptest.NewRequestWithContext(t.Context(), method, path, nil)
 	} else {
-		r = httptest.NewRequest(method, path, bytes.NewBufferString(body))
+		r = httptest.NewRequestWithContext(t.Context(), method, path, bytes.NewBufferString(body))
 	}
 	rec := httptest.NewRecorder()
 	srv.ServeHTTP(rec, r)
@@ -66,12 +66,12 @@ func TestWidgets_CreateValidation(t *testing.T) {
 		body   string
 		status int
 	}{
-		"missing name":     {`{"color":"#ffffff","quantity":1}`, http.StatusUnprocessableEntity},
-		"bad color":        {`{"name":"x","color":"notacolor","quantity":1}`, http.StatusUnprocessableEntity},
-		"negative qty":     {`{"name":"x","color":"#fff","quantity":-1}`, http.StatusUnprocessableEntity},
-		"malformed json":   {`{"name":`, http.StatusBadRequest},
-		"unknown field":    {`{"name":"x","color":"#fff","bogus":true}`, http.StatusBadRequest},
-		"empty body":       {``, http.StatusBadRequest},
+		"missing name":   {`{"color":"#ffffff","quantity":1}`, http.StatusUnprocessableEntity},
+		"bad color":      {`{"name":"x","color":"notacolor","quantity":1}`, http.StatusUnprocessableEntity},
+		"negative qty":   {`{"name":"x","color":"#fff","quantity":-1}`, http.StatusUnprocessableEntity},
+		"malformed json": {`{"name":`, http.StatusBadRequest},
+		"unknown field":  {`{"name":"x","color":"#fff","bogus":true}`, http.StatusBadRequest},
+		"empty body":     {``, http.StatusBadRequest},
 	}
 
 	for name, tc := range tests {
