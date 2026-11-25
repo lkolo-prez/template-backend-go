@@ -1,7 +1,7 @@
 # security.txt — https://www.rfc-editor.org/rfc/rfc9116
 # Update Expires at least annually. Served at /.well-known/security.txt in production.
-Contact: https://github.com/aircloud/template-backend-go/security/advisories/new
-Contact: mailto:security@aircloud.com.pl
-Policy: https://github.com/aircloud/template-backend-go/blob/main/SECURITY.md
+Contact: https://github.com/lkolo-prez/template-backend-go/security/advisories/new
+Contact: mailto:office@aircloud.com.pl
+Policy: https://github.com/lkolo-prez/template-backend-go/blob/main/SECURITY.md
 Preferred-Languages: en
 Expires: 2027-06-30T00:00:00.000Z

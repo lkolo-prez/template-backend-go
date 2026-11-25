@@ -9,9 +9,9 @@ Thank you for helping keep the ecosystem safe.
 
 Report privately through **GitHub Security Advisories**:
 
-- <https://github.com/aircloud/template-backend-go/security/advisories/new>
+- <https://github.com/lkolo-prez/template-backend-go/security/advisories/new>
 
-If you cannot use GitHub Advisories, email **security@aircloud.com.pl** and, where possible,
+If you cannot use GitHub Advisories, email **office@aircloud.com.pl** and, where possible,
 encrypt with the key referenced in our [`security.txt`](.well-known/security.txt).
 
 Please include:
